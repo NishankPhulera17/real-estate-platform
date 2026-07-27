@@ -1,0 +1,508 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  GUEST
+  BUYER
+  BROKER
+  BUILDER
+  ADMIN
+}
+
+enum PropertyStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  REJECTED
+  SOLD
+  RENTED
+  ARCHIVED
+}
+
+enum LeadStage {
+  NEW
+  CONTACTED
+  QUALIFIED
+  SITE_VISIT
+  NEGOTIATION
+  WON
+  LOST
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String? // Nullable for OAuth users
+  name      String
+  phone     String?
+  role      Role      @default(BUYER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  accounts  Account[]
+  sessions  Session[]
+
+  profile Profile?
+  builder Builder?
+  broker  Broker?
+
+  leadsAssigned       Lead[]         @relation("AssignedSalesperson")
+  favorites           Favorite[]
+  comparisons         Comparison[]
+  appointments        Appointment[]  @relation("UserAppointments")
+  managedAppointments Appointment[]  @relation("SalespersonAppointments")
+  reviews             Review[]
+  notifications       Notification[]
+  auditLogs           AuditLog[]
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio       String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Builder {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name            String
+  slug            String   @unique
+  logo            String?
+  description     String?
+  experienceYears Int      @default(0)
+  rating          Float    @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  properties   Property[]
+  leads        Lead[]
+  appointments Appointment[]
+}
+
+model Broker {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String
+  licenseNo   String?
+  rating      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  properties Property[]
+}
+
+model State {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  cities    City[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model City {
+  id         String     @id @default(uuid())
+  name       String
+  stateId    String
+  state      State      @relation(fields: [stateId], references: [id], onDelete: Cascade)
+  properties Property[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@unique([name, stateId])
+}
+
+model Location {
+  id         String   @id @default(uuid())
+  address    String
+  locality   String
+  latitude   Float?
+  longitude  Float?
+  propertyId String   @unique
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+}
+
+model Amenity {
+  id         String            @id @default(uuid())
+  name       String            @unique
+  icon       String?
+  properties PropertyAmenity[]
+  createdAt  DateTime          @default(now())
+}
+
+model Property {
+  id               String         @id @default(uuid())
+  title            String
+  slug             String         @unique
+  description      String?
+  price            Float
+  pricePerSqFt     Float?
+  propertyType     String // e.g., Apartment, Villa, Plot
+  possessionStatus String // e.g., Ready to Move, Under Construction
+  status           PropertyStatus @default(DRAFT)
+  bhk              Int?
+  bedrooms         Int?
+  bathrooms        Int?
+  parking          Int?           @default(0)
+  furnished        String? // Furnished, Semi-Furnished, Unfurnished
+  areaSqFt         Float
+  reraId           String?
+
+  isDeleted Boolean @default(false)
+
+  cityId   String?
+  city     City?     @relation(fields: [cityId], references: [id])
+  location Location?
+
+  builderId String?
+  builder   Builder? @relation(fields: [builderId], references: [id])
+  brokerId  String?
+  broker    Broker?  @relation(fields: [brokerId], references: [id])
+
+  images    PropertyImage[]
+  videos    PropertyVideo[]
+  documents PropertyDocument[]
+  amenities PropertyAmenity[]
+
+  leads        Lead[]
+  favorites    Favorite[]
+  comparisons  ComparisonProperty[]
+  appointments Appointment[]
+  reviews      Review[]
+
+  // Lifestyle & Migration Fields
+  destinationId String?
+  destination   Destination? @relation(fields: [destinationId], references: [id])
+
+  lifestyles PropertyLifestyle[]
+
+  airQualityIndex         Int?
+  waterSource             String?
+  waterReliability        String?
+  solarReady              Boolean?
+  rainwaterHarvesting     Boolean?
+  organicFarmingPotential String?
+  noiseLevel              String?
+  internetSpeed           String?
+  mobileCoverage          String?
+  walkability             String?
+  hospitalDistance        String?
+  schoolDistance          String?
+  marketDistance          String?
+  weatherSummary          String?
+  landscapeType           String?
+  viewType                String?
+  ecoFeatures             String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PropertyImage {
+  id         String   @id @default(uuid())
+  url        String
+  isCover    Boolean  @default(false)
+  order      Int      @default(0)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model PropertyVideo {
+  id         String   @id @default(uuid())
+  url        String
+  provider   String? // e.g., YouTube, Vimeo
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model PropertyDocument {
+  id         String   @id @default(uuid())
+  title      String
+  url        String
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+model PropertyAmenity {
+  propertyId String
+  amenityId  String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  amenity    Amenity  @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@id([propertyId, amenityId])
+}
+
+model Lead {
+  id     String    @id @default(uuid())
+  name   String
+  phone  String
+  email  String?
+  source String    @default("Website") // e.g., Website, Facebook, Direct
+  type   String    @default("General Inquiry") // e.g., Download Brochure, Book Site Visit, WhatsApp
+  stage  LeadStage @default(NEW)
+  notes  String?
+
+  userId     String?
+  propertyId String?
+  property   Property? @relation(fields: [propertyId], references: [id])
+  builderId  String?
+  builder    Builder?  @relation(fields: [builderId], references: [id])
+
+  salespersonId String?
+  assignedUser  User?   @relation("AssignedSalesperson", fields: [salespersonId], references: [id])
+
+  activities LeadActivity[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LeadActivity {
+  id        String   @id @default(uuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type      String // e.g., Call, Email, Note, StageChange
+  note      String?
+  createdAt DateTime @default(now())
+}
+
+model Favorite {
+  id         String   @id @default(uuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, propertyId])
+}
+
+model Comparison {
+  id         String               @id @default(uuid())
+  userId     String
+  user       User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  properties ComparisonProperty[]
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+}
+
+model ComparisonProperty {
+  comparisonId String
+  propertyId   String
+  comparison   Comparison @relation(fields: [comparisonId], references: [id], onDelete: Cascade)
+  property     Property   @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@id([comparisonId, propertyId])
+}
+
+model Appointment {
+  id     String   @id @default(uuid())
+  date   DateTime
+  time   String // HH:mm format or could combine with date
+  status String   @default("Scheduled") // Scheduled, Completed, Cancelled
+
+  userId     String
+  user       User     @relation("UserAppointments", fields: [userId], references: [id], onDelete: Cascade)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  builderId String?
+  builder   Builder? @relation(fields: [builderId], references: [id])
+
+  salespersonId String?
+  salesperson   User?   @relation("SalespersonAppointments", fields: [salespersonId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Review {
+  id         String  @id @default(uuid())
+  rating     Int
+  comment    String?
+  isApproved Boolean @default(false)
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id         String   @id @default(uuid())
+  title      String
+  slug       String   @unique
+  content    String // MD or HTML
+  snippet    String?
+  coverImage String?
+  seoTitle   String?
+  seoDesc    String?
+  categories String[] // Simple array of strings for categories
+  tags       String[] // Simple array of strings for tags
+
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Notification {
+  id      String  @id @default(uuid())
+  type    String // e.g., NewLead, PropertyApproved, AppointmentBooked
+  message String
+  isRead  Boolean @default(false)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+}
+
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique // e.g., manage_users, manage_properties
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id       String  @id @default(uuid())
+  action   String // e.g., CREATE, UPDATE, DELETE
+  entity   String // e.g., Property, Lead
+  entityId String
+  details  String? // JSON string of changes
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ----------------------------------------------------------------------
+// NEW MODELS: Lifestyle & Migration Refactor
+// ----------------------------------------------------------------------
+
+model Destination {
+  id                   String   @id @default(uuid())
+  name                 String
+  slug                 String   @unique
+  description          String?
+  heroImage            String?
+  elevation            String?
+  climate              String?
+  airQuality           String?
+  waterQuality         String?
+  population           String?
+  internetAvailability String?
+  nearestHospital      String?
+  nearestSchool        String?
+  nearestMarket        String?
+  nearestAirport       String?
+  nearestRailway       String?
+  sustainabilityScore  Float?
+  remoteWorkScore      Float?
+  retirementScore      Float?
+  familyFriendliness   Float?
+  costOfLiving         String?
+  thingsToDo           String[]
+  localBusinesses      String[]
+
+  properties Property[]
+  galleries  DestinationGallery[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DestinationGallery {
+  id            String      @id @default(uuid())
+  url           String
+  destinationId String
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+}
+
+model LifestyleCategory {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  slug        String  @unique
+  description String?
+  icon        String?
+
+  properties PropertyLifestyle[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PropertyLifestyle {
+  propertyId          String
+  lifestyleCategoryId String
+  property            Property          @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  lifestyleCategory   LifestyleCategory @relation(fields: [lifestyleCategoryId], references: [id], onDelete: Cascade)
+
+  @@id([propertyId, lifestyleCategoryId])
+}
+
+model MigrationGuide {
+  id          String    @id @default(uuid())
+  title       String
+  slug        String    @unique
+  content     String
+  seoTitle    String?
+  seoDesc     String?
+  publishedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
