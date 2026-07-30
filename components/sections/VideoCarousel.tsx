@@ -3,11 +3,11 @@ import { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const videos = [
-  { id: '1', youtubeId: 'LXb3EKWsInQ', title: 'Luxury Himalayan Villa Tour' },
-  { id: '2', youtubeId: 'd7XW2m92Dvw', title: 'Serene Nature Plots for Sale' },
-  { id: '3', youtubeId: 'Y18B6M9zIqk', title: 'Modern Pahadi Homes Architecture' },
-  { id: '4', youtubeId: 'tO01J-M3g0U', title: 'Riverfront Properties Overview' },
-  { id: '5', youtubeId: '3G1PFLlsEKk', title: 'Off-grid Living Spaces Experience' },
+  { id: '1', youtubeId: 'f4tYpk5gj3g', title: 'Luxury Himalayan Villa Tour' },
+  { id: '2', youtubeId: 'DT9gt5lcS2A', title: 'Serene Nature Plots for Sale' },
+  { id: '3', youtubeId: 'wWzeumAOJ1g', title: 'Modern Pahadi Homes Architecture' },
+  { id: '4', youtubeId: 'AEitffGCoK0', title: 'Riverfront Properties Overview' },
+  { id: '5', youtubeId: 'DJAHW-FKD3g', title: 'Off-grid Living Spaces Experience' },
 ];
 
 export function VideoCarousel() {
@@ -33,14 +33,14 @@ export function VideoCarousel() {
           </p>
         </div>
         <div className="hidden md:flex gap-3">
-          <button 
+          <button
             onClick={() => scroll('left')}
             className="p-3 rounded-full border border-forest-200 hover:bg-forest-50 transition-colors text-forest-800"
             aria-label="Scroll left"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
-          <button 
+          <button
             onClick={() => scroll('right')}
             className="p-3 rounded-full border border-forest-200 hover:bg-forest-50 transition-colors text-forest-800"
             aria-label="Scroll right"
@@ -50,14 +50,14 @@ export function VideoCarousel() {
         </div>
       </div>
 
-      <div 
+      <div
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto snap-x snap-mandatory px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto pb-8 scrollbar-hide"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {videos.map((video) => (
-          <div 
-            key={video.id} 
+          <div
+            key={video.id}
             className="snap-center shrink-0 w-[85vw] md:w-[600px] lg:w-[700px] aspect-video rounded-2xl overflow-hidden bg-forest-100 shadow-lg relative"
           >
             <iframe
@@ -71,7 +71,7 @@ export function VideoCarousel() {
           </div>
         ))}
       </div>
-      
+
       {/* Mobile scroll indicator */}
       <div className="md:hidden flex justify-center mt-4 gap-2 text-wood-400 text-sm items-center">
         <ChevronLeft className="w-4 h-4" />
