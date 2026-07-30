@@ -1,21 +1,37 @@
 "use server";
 
 import { auth } from "@/auth";
+import { cookies } from "next/headers";
 import { leadService } from "@/lib/services/lead.service";
+import { analyticsService } from "@/lib/services/analytics.service";
 import { CaptureLeadInput, UpdateLeadStageInput, AddLeadActivityInput } from "@/lib/validations/lead";
 
 // Public endpoint for capturing leads (e.g. from property page CTA)
 export async function captureLeadAction(data: CaptureLeadInput) {
   try {
     const session = await auth();
-    // User might be logged in or guest, if logged in, link user ID if desired
-    // Here we pass session?.user?.id just in case
-    const lead = await leadService.captureLead(data, session?.user?.id);
+    const cookieStore = await cookies();
+    const cookieId = cookieStore.get("visitor_id")?.value;
+
+    let visitorId: string | undefined = undefined;
+    let intentScore = 55; // Default strong baseline for submitting contact details
+
+    if (cookieId) {
+      const visitor = await analyticsService.getVisitorTimeline(cookieId);
+      if (visitor) {
+        visitorId = visitor.id;
+        const calculatedScore = await analyticsService.calculateIntentScore(visitor.id);
+        intentScore = Math.max(calculatedScore, intentScore);
+      }
+    }
+
+    const lead = await leadService.captureLead(data, session?.user?.id, visitorId, intentScore);
     return { success: true, data: lead };
   } catch (error: any) {
     return { error: error.message || "Failed to capture lead" };
   }
 }
+
 
 // Protected endpoints for Builders and Admins
 export async function updateLeadStageAction(data: UpdateLeadStageInput) {

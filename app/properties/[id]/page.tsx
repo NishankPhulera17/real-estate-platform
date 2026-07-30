@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { formatPriceINR, formatNumberIN } from '@/lib/utils';
 import { getPropertyByIdAction } from '@/app/actions/property';
+import { captureLeadAction } from '@/app/actions/lead';
 import { formatDbProperty } from '@/lib/utils/formatProperty';
 import { Property } from '@/lib/types';
 
@@ -85,14 +86,51 @@ export default function PropertyDetailsPage({ params }: { params: Promise<{ id: 
   const [leadName, setLeadName] = useState('');
   const [leadPhone, setLeadPhone] = useState('');
   const [leadEmail, setLeadEmail] = useState('');
+  const [submittingLead, setSubmittingLead] = useState(false);
 
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLeadFormSubmitted(true);
-    setTimeout(() => {
-      setLeadFormSubmitted(false);
-      setShowLeadModal(false);
-    }, 2500);
+    setSubmittingLead(true);
+    try {
+      // 1. Send immediate telemetry tracking event
+      const eventType = leadType === 'Brochure' ? 'BROCHURE_DOWNLOAD' : leadType === 'Site Visit' ? 'SITE_VISIT_REQUEST' : 'CTA_CLICK';
+      await fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventType,
+          path: window.location.pathname,
+          propertyId: property?.id,
+          metadata: { leadType, name: leadName, phone: leadPhone, email: leadEmail }
+        })
+      }).catch(() => {});
+
+      // 2. Persist high-intent lead in PostgreSQL with visitor stitching & intent boost
+      if (property?.id) {
+        await captureLeadAction({
+          name: leadName,
+          phone: leadPhone,
+          email: leadEmail || undefined,
+          propertyId: property.id,
+          type: leadType,
+          source: `Web Property Detail - ${leadType}`,
+          notes: `High-intent buyer requested ${leadType} for listing: ${property.title}.`
+        });
+      }
+
+      setLeadFormSubmitted(true);
+      setTimeout(() => {
+        setLeadFormSubmitted(false);
+        setShowLeadModal(false);
+        setLeadName('');
+        setLeadPhone('');
+        setLeadEmail('');
+      }, 2800);
+    } catch (err) {
+      console.error('Failed to submit lead:', err);
+    } finally {
+      setSubmittingLead(false);
+    }
   };
 
   const openLeadModal = (type: 'Site Visit' | 'Brochure' | 'Callback' | 'Loan') => {
@@ -642,10 +680,20 @@ export default function PropertyDetailsPage({ params }: { params: Promise<{ id: 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-slate-900 font-semibold text-xs shadow-lg shadow-brand-500/20 hover:brightness-110 flex items-center justify-center space-x-2"
+                    disabled={submittingLead}
+                    className="w-full py-3 rounded-xl bg-gradient-to-r from-brand-600 to-brand-500 text-slate-900 font-semibold text-xs shadow-lg shadow-brand-500/20 hover:brightness-110 flex items-center justify-center space-x-2 disabled:opacity-50 transition-all"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>Confirm & Submit Lead</span>
+                    {submittingLead ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Logging Telemetry & Saving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Confirm & Submit Lead</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

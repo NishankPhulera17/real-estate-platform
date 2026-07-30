@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:tunnel": "node scripts/start_with_tunnel.js",
+    "tunnel": "ngrok http 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -29,6 +31,7 @@
     "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
+    "@ngrok/ngrok": "^1.7.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.2",
     "@types/pg": "^8.20.0",

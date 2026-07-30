@@ -35,12 +35,14 @@ enum LeadStage {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String    @unique
-  password  String? // Nullable for OAuth users
-  name      String
-  phone     String?
-  role      Role      @default(BUYER)
+  id            String    @id @default(uuid())
+  email         String    @unique
+  emailVerified DateTime?
+  password      String? // Nullable for OAuth users
+  name          String
+  image         String?
+  phone         String?
+  role          Role      @default(BUYER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   accounts  Account[]
@@ -58,6 +60,8 @@ model User {
   reviews             Review[]
   notifications       Notification[]
   auditLogs           AuditLog[]
+  visitors            Visitor[]
+  trackingEvents      TrackingEvent[]
 }
 
 model Profile {
@@ -203,6 +207,8 @@ model Property {
   viewType                String?
   ecoFeatures             String[]
 
+  trackingEvents          TrackingEvent[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -262,6 +268,10 @@ model Lead {
 
   salespersonId String?
   assignedUser  User?   @relation("AssignedSalesperson", fields: [salespersonId], references: [id])
+
+  visitorId   String?
+  visitor     Visitor? @relation(fields: [visitorId], references: [id])
+  intentScore Int?     @default(0)
 
   activities LeadActivity[]
 
@@ -506,3 +516,41 @@ model MigrationGuide {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// ----------------------------------------------------------------------
+// TELEMETRY & INTENT SCORING MODELS
+// ----------------------------------------------------------------------
+
+model Visitor {
+  id            String          @id @default(uuid())
+  cookieId      String          @unique
+  userId        String?
+  user          User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  userAgent     String?
+  ipAddress     String?
+  referrer      String?
+  utmSource     String?
+  utmMedium     String?
+  utmCampaign   String?
+  lastVisitedAt DateTime        @default(now())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  events        TrackingEvent[]
+  leads         Lead[]
+}
+
+model TrackingEvent {
+  id         String    @id @default(uuid())
+  visitorId  String
+  visitor    Visitor   @relation(fields: [visitorId], references: [id], onDelete: Cascade)
+  userId     String?
+  user       User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  propertyId String?
+  property   Property? @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  eventType  String    // e.g., SITE_ENTER, PROPERTY_VIEW, BROCHURE_DOWNLOAD, TIME_SPENT, CTA_CLICK
+  path       String
+  metadata   String?   // JSON string containing durationSeconds, interactions, etc.
+  createdAt  DateTime  @default(now())
+}
+

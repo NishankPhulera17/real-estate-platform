@@ -19,7 +19,9 @@ import {
   Video,
   Plus,
   Trash2,
-  Zap
+  Zap,
+  Upload,
+  Cloud
 } from 'lucide-react';
 import { createPropertyAction } from '@/app/actions/property';
 
@@ -28,6 +30,7 @@ interface PropertyCreationModalProps {
   onClose: () => void;
   onSuccess: (newProperty: any) => void;
   defaultPropertyType?: string;
+  defaultLocality?: string;
   modalTitle?: string;
 }
 
@@ -68,6 +71,7 @@ export function PropertyCreationModal({
   onClose,
   onSuccess,
   defaultPropertyType = 'Apartment',
+  defaultLocality = '',
   modalTitle = 'Launch New Project & Listing'
 }: PropertyCreationModalProps) {
   const [title, setTitle] = useState('');
@@ -81,7 +85,12 @@ export function PropertyCreationModal({
   const [parking, setParking] = useState('2');
   const [furnished, setFurnished] = useState('Semi-Furnished');
   const [address, setAddress] = useState('');
-  const [locality, setLocality] = useState('');
+  const [locality, setLocality] = useState(defaultLocality);
+
+  React.useEffect(() => {
+    if (defaultLocality) setLocality(defaultLocality);
+  }, [defaultLocality]);
+
   const [description, setDescription] = useState('');
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(['Mountain View', 'High-speed Fiber Internet', '24/7 Security & CCTV']);
   const [imageUrls, setImageUrls] = useState<string[]>([
@@ -105,6 +114,56 @@ export function PropertyCreationModal({
       'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
     ]);
     setVideoUrlInput('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+  };
+
+  const [uploadingCloudinary, setUploadingCloudinary] = useState(false);
+  const [cloudinaryNotice, setCloudinaryNotice] = useState<string | null>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    setUploadingCloudinary(true);
+    setCloudinaryNotice(null);
+
+    try {
+      const newUrls: string[] = [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        if (data.success && data.url) {
+          newUrls.push(data.url);
+          if (data.isSimulated) {
+            setCloudinaryNotice("⚠️ Simulated Cloudinary demo link added. To store real photos in your bucket, paste your credentials into .env.");
+          } else {
+            setCloudinaryNotice("✅ Successfully uploaded to Cloudinary 'real_estate' storage and linked below!");
+          }
+        } else {
+          setErrorMsg(data.error || "Failed to upload image to Cloudinary.");
+        }
+      }
+
+      if (newUrls.length > 0) {
+        setImageUrls(prev => {
+          const filtered = prev.filter(u => u.trim() !== "");
+          return [...filtered, ...newUrls];
+        });
+      }
+    } catch (err: any) {
+      console.error("Upload error:", err);
+      setErrorMsg("Failed to connect to Cloudinary upload endpoint.");
+    } finally {
+      setUploadingCloudinary(false);
+      e.target.value = "";
+    }
   };
 
   if (!isOpen) return null;
@@ -478,7 +537,57 @@ export function PropertyCreationModal({
               </button>
             </div>
 
-            <div className="space-y-3">
+            {/* Cloudinary Direct Uploader */}
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-amber-500/30 space-y-3 shadow-inner">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-extrabold text-amber-300 uppercase tracking-wide flex items-center space-x-1.5">
+                  <Cloud className="w-4 h-4 text-amber-400 fill-amber-400/20" />
+                  <span>Cloudinary Direct Image Upload</span>
+                </span>
+                <span className="text-[10px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full border border-slate-700">
+                  Supports JPG, PNG, WEBP
+                </span>
+              </div>
+              <p className="text-xs text-slate-400">
+                Upload architectural imagery directly from your computer. Photos are transferred to your secure Cloudinary storage bucket (<code className="text-amber-300 font-mono">real_estate</code> folder) and automatically inserted below.
+              </p>
+              
+              <label className="relative flex flex-col items-center justify-center p-6 border-2 border-dashed border-amber-500/40 hover:border-amber-400 rounded-xl bg-slate-800/40 hover:bg-slate-800/70 transition-all cursor-pointer group">
+                <input 
+                  type="file" 
+                  multiple 
+                  accept="image/*" 
+                  onChange={handleFileUpload}
+                  disabled={uploadingCloudinary || loading}
+                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed" 
+                />
+                <div className="flex flex-col items-center text-center space-y-2 pointer-events-none">
+                  {uploadingCloudinary ? (
+                    <div className="flex items-center space-x-2 text-amber-400 font-bold text-xs">
+                      <Loader2 className="w-5 h-5 animate-spin text-amber-400" />
+                      <span>Uploading photos to Cloudinary storage...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <Upload className="w-8 h-8 text-amber-400 group-hover:scale-110 transition-transform" />
+                      <span className="text-xs font-bold text-slate-200 group-hover:text-amber-300 transition-colors">
+                        Click to Browse or Drag & Drop Photos Here
+                      </span>
+                      <span className="text-[10px] text-slate-500">Multiple files supported • Automatic optimization</span>
+                    </>
+                  )}
+                </div>
+              </label>
+
+              {cloudinaryNotice && (
+                <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[11px] font-semibold flex items-center space-x-2">
+                  <Sparkles className="w-3.5 h-3.5 flex-shrink-0 text-amber-400" />
+                  <span>{cloudinaryNotice}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="space-y-3 pt-2">
               <label className="block text-xs font-semibold text-slate-300">Property Image URLs (Cover Photo is 1st link)</label>
               {imageUrls.map((url, index) => (
                 <div key={index} className="flex items-center space-x-2">

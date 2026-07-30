@@ -2,6 +2,7 @@ import { propertyRepository } from "../repositories/property.repository";
 import { PropertyInput, propertySchema, PropertyUpdateInput, propertyUpdateSchema } from "../validations/property";
 import { uploadImage } from "../cloudinary";
 import { Prisma } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export class PropertyService {
   async createProperty(data: PropertyInput, builderId?: string, brokerId?: string) {
@@ -40,6 +41,21 @@ export class PropertyService {
     if (builderId) createData.builder = { connect: { id: builderId } };
     if (brokerId) createData.broker = { connect: { id: brokerId } };
     
+    // Auto-associate with matching destination if present in database
+    try {
+      const allDestinations = await prisma.destination.findMany({ select: { id: true, name: true, slug: true } });
+      const matchText = `${parsed.locality || ''} ${parsed.address || ''} ${parsed.title || ''}`.toLowerCase();
+      const matchedDest = allDestinations.find(d => 
+        matchText.includes(d.name.toLowerCase().trim()) || 
+        matchText.includes(d.slug.replace(/-/g, ' ').toLowerCase().trim())
+      );
+      if (matchedDest) {
+        createData.destination = { connect: { id: matchedDest.id } };
+      }
+    } catch (err) {
+      console.error("Error auto-matching destination during property creation:", err);
+    }
+
     if (parsed.amenities && parsed.amenities.length > 0) {
       createData.amenities = {
         create: parsed.amenities.map(id => ({

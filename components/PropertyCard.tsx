@@ -19,6 +19,13 @@ export interface PropertyProps {
 }
 
 export default function PropertyCard({ property }: { property: PropertyProps }) {
+  const rawUrl = property.imageUrl;
+  const validImageUrl = typeof rawUrl === 'string'
+    ? rawUrl
+    : (rawUrl && typeof rawUrl === 'object' && (rawUrl as any).url ? (rawUrl as any).url : 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80');
+
+  const [imgSrc, setImgSrc] = React.useState<string>(validImageUrl || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80');
+
   return (
     <motion.div 
       whileHover={{ y: -8 }}
@@ -29,8 +36,9 @@ export default function PropertyCard({ property }: { property: PropertyProps }) 
         {/* Fallback to a styled div if no actual image URL is provided, but we assume it is */}
         <div className="absolute inset-0 bg-slate-100 animate-pulse" />
         <img 
-          src={property.imageUrl} 
+          src={imgSrc} 
           alt={property.title}
+          onError={() => setImgSrc('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80')}
           className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
         />
         

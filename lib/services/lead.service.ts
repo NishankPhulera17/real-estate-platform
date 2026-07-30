@@ -3,7 +3,7 @@ import { CaptureLeadInput, captureLeadSchema, UpdateLeadStageInput, updateLeadSt
 import { Prisma } from "@prisma/client";
 
 export class LeadService {
-  async captureLead(data: CaptureLeadInput, userId?: string) {
+  async captureLead(data: CaptureLeadInput, userId?: string, visitorId?: string, intentScore?: number) {
     const parsed = captureLeadSchema.parse(data);
 
     const createData: Prisma.LeadCreateInput = {
@@ -18,14 +18,17 @@ export class LeadService {
     if (userId) createData.assignedUser = { connect: { id: userId } };
     if (parsed.propertyId) createData.property = { connect: { id: parsed.propertyId } };
     if (parsed.builderId) createData.builder = { connect: { id: parsed.builderId } };
+    if (visitorId) createData.visitor = { connect: { id: visitorId } };
+    if (typeof intentScore === "number") createData.intentScore = intentScore;
 
     const lead = await leadRepository.createLead(createData);
 
     // Automatically log activity for creation
-    await leadRepository.addActivity(lead.id, "System", "Lead captured from " + parsed.source);
+    await leadRepository.addActivity(lead.id, "System", `Lead captured from ${parsed.source}${intentScore ? ` (Intent Score: ${intentScore}/100)` : ""}`);
 
     return lead;
   }
+
 
   async updateLeadStage(data: UpdateLeadStageInput) {
     const parsed = updateLeadStageSchema.parse(data);

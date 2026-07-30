@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Play, MapPin } from 'lucide-react';
 import TheShift from '@/components/sections/TheShift';
+import { VideoCarousel } from '@/components/sections/VideoCarousel';
 
 export default function HomePage() {
   return (
@@ -70,33 +71,8 @@ export default function HomePage() {
       {/* 2. THE SHIFT - Premium Editorial Typography */}
       <TheShift />
 
-      {/* 3. WHY PEOPLE MOVE - Minimal Quote Blocks */}
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-12 max-w-[1200px] mx-auto border-t border-forest-100">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
-          <div className="space-y-8">
-            <div className="relative aspect-[4/3] w-full shadow-xl">
-              <Image src="https://images.unsplash.com/photo-1601058269720-3b4e39ec2fba?auto=format&fit=crop&w=1000&q=80" alt="Vibrant Himalayan Culture" fill className="object-cover transition-all duration-1000" unoptimized />
-            </div>
-            <div>
-              <p className="text-xl font-display font-medium text-forest-900 leading-relaxed mb-4">
-                "The Aipan art on our doorstep and the scent of rhododendrons. This isn't just a house, it's an inheritance."
-              </p>
-              <span className="text-xs font-semibold uppercase tracking-widest text-wood-600 block">— The Culture Seeker</span>
-            </div>
-          </div>
-          <div className="space-y-8">
-            <div className="relative aspect-[4/3] w-full shadow-xl">
-              <Image src="https://images.unsplash.com/photo-1596781297576-96b4dbac7fbb?auto=format&fit=crop&w=1000&q=80" alt="Pahadi Lifestyle" fill className="object-cover transition-all duration-1000" unoptimized />
-            </div>
-            <div>
-              <p className="text-xl font-display font-medium text-forest-900 leading-relaxed mb-4">
-                "We wanted our children to know the soil, the ancient pines, and the warmth of a Pahadi community."
-              </p>
-              <span className="text-xs font-semibold uppercase tracking-widest text-wood-600 block">— The Family</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
+
 
 
       {/* =========================================================================
@@ -106,8 +82,10 @@ export default function HomePage() {
 
 
 
+      <VideoCarousel />
+
       {/* 5. DISCOVER PLACES - Minimalist Grid */}
-      <section className="py-16 lg:py-20 bg-forest-50 px-4 sm:px-6 lg:px-12">
+      {/* <section className="py-10 lg:py-14 bg-forest-50 px-4 sm:px-6 lg:px-12">
         <div className="max-w-[1400px] mx-auto space-y-20">
           <div className="text-center space-y-6">
             <h2 className="font-display text-5xl font-medium text-forest-900">Where will your roots grow?</h2>
@@ -141,10 +119,10 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 7. CURATED OPPORTUNITIES - Pahadi Heritage Homes */}
-      <section className="py-20 lg:py-24 bg-forest-900 text-forest-50 px-4 sm:px-6 lg:px-12">
+      <section className="py-10 lg:py-12 bg-forest-900 text-forest-50 px-4 sm:px-6 lg:px-12">
         <div className="max-w-[1400px] mx-auto space-y-24">
           <div className="flex flex-col md:flex-row justify-between items-end border-b border-forest-700 pb-8">
             <div className="space-y-4">
@@ -187,7 +165,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. MOUNTAIN LIVING JOURNAL - Editorial Covers */}
-      <section className="py-16 lg:py-20 px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto">
+      <section className="py-8 lg:py-10 px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto">
         <div className="flex flex-col md:flex-row items-end justify-between mb-16">
           <h2 className="font-display text-5xl font-medium text-forest-900">Journal</h2>
           <Link href="/blog" className="text-sm font-semibold uppercase tracking-widest text-forest-700 hover:text-forest-900 transition-colors mt-6 md:mt-0 border-b border-wood-400 pb-1">
@@ -201,7 +179,7 @@ export default function HomePage() {
             { title: "Building a Sustainable Mountain Home", tag: "Vol II — Architecture", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" },
           ].map((article, idx) => (
             <Link href={`/blog/${article.title.toLowerCase().replace(/ /g, '-')}`} key={idx} className="group block">
-              <div className="relative h-[700px] mb-8 overflow-hidden shadow-lg">
+              <div className="relative aspect-[4/3] w-full mb-8 overflow-hidden shadow-lg">
                 <Image src={article.img} alt={article.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-105" unoptimized />
               </div>
               <span className="text-[10px] font-semibold uppercase tracking-widest text-wood-600 block mb-3">{article.tag}</span>
