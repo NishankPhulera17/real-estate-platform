@@ -489,11 +489,11 @@ export const MOCK_LEADS: Lead[] = [
 export const MOCK_BLOGS: BlogPost[] = [
   {
     id: 'blog-1',
-    slug: 'gurgaon-golf-course-road-investment-guide-2026',
-    title: 'Why Golf Course Road Remains Gurgaon\'s Top Capital Growth Hub in 2026',
+    slug: 'tehri-lake-investment-guide',
+    title: 'Why New Tehri is the Next Big Luxury Vacation Home Destination',
     category: 'Investment',
-    snippet: 'An in-depth analysis of supply constraints, rental yield appreciation, and why NRI investors are doubling down on luxury Golf Course Road projects.',
-    content: 'Golf Course Road has consistently outperformed traditional micro-markets in the National Capital Region (NCR). With limited land banks remaining and unprecedented demand for gated ultra-luxury high-rises, capital value appreciation has crossed 18% YoY.',
+    snippet: 'With its pristine lake views and upcoming luxury resorts, Tehri is attracting HNI investors looking for premium second homes.',
+    content: 'Tehri has consistently outperformed traditional hill stations in Uttarakhand. With the massive Tehri Lake and government initiatives to develop world-class water sports and luxury tourism, land values have appreciated by over 22% YoY. Investors are flocking to build luxury villas and boutique resorts overlooking the magnificent reservoir.',
     author: {
       name: 'Aditya Oberoi',
       role: 'Head of Real Estate Intelligence',
@@ -501,16 +501,16 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-18',
     readTimeMinutes: 6,
-    coverImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Gurgaon', 'Golf Course Road', 'Luxury Real Estate', 'Market Trends']
+    coverImage: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Tehri', 'Lake View', 'Luxury Real Estate', 'Market Trends']
   },
   {
     id: 'blog-2',
-    slug: 'noida-expressway-jewar-airport-impact',
-    title: 'Jewar Airport Operational Timeline & Impact on Noida Expressway Real Estate',
+    slug: 'dehradun-real-estate-boom',
+    title: 'Dehradun Real Estate Boom: Connecting City Comforts with Nature',
     category: 'Market News',
-    snippet: 'Exploring how upcoming commercial corridors and international aviation connectivity are driving 25%+ price surges along Sector 140 to 150.',
-    content: 'Noida Expressway is witnessing an unprecedented transition from affordable suburbia to a high-end corporate and residential hub. The commercial readiness of Noida International Airport at Jewar is the principal catalyst.',
+    snippet: 'Exploring how improved highway connectivity and IT parks are driving demand for premium residences in the Doon Valley.',
+    content: 'Dehradun is witnessing an unprecedented transition from a quiet retirement town to a bustling residential hub. The Delhi-Dehradun Expressway is the principal catalyst, cutting travel time drastically and making it a prime location for remote workers, retirees, and families looking for a blend of urban amenities and natural serenity.',
     author: {
       name: 'Neha Kapoor',
       role: 'Senior Market Analyst',
@@ -518,8 +518,25 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-12',
     readTimeMinutes: 5,
-    coverImage: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80',
-    tags: ['Noida', 'Jewar Airport', 'Infrastructure', 'Price Trends']
+    coverImage: 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Dehradun', 'Doon Valley', 'Infrastructure', 'Price Trends']
+  },
+  {
+    id: 'blog-3',
+    slug: 'kanatal-hidden-gem-uttarakhand',
+    title: 'Kanatal: The Hidden Gem for Exclusive Mountain Retreats',
+    category: 'Lifestyle',
+    snippet: 'Discover why the quiet, pine-scented slopes of Kanatal are becoming the preferred address for ultra-luxury eco-friendly estates.',
+    content: 'While Mussoorie remains crowded, neighboring Kanatal offers the untouched beauty and tranquility that high-end buyers crave. Known for its lush pine forests and panoramic Himalayan views, Kanatal is emerging as a hotspot for sustainable, luxury eco-estates. Buyers are prioritizing privacy and nature, making this quiet hamlet highly sought after.',
+    author: {
+      name: 'Rohan Sharma',
+      role: 'Lifestyle Property Expert',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80'
+    },
+    publishedAt: '2026-07-05',
+    readTimeMinutes: 4,
+    coverImage: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Kanatal', 'Eco-Estates', 'Mountain Homes', 'Lifestyle']
   }
 ];
 

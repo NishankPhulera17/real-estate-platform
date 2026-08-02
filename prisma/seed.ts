@@ -237,14 +237,30 @@ async function main() {
   }
 
   // Create Blogs
-  await prisma.blog.create({
-    data: {
-      title: 'Top 10 Investment Areas in Mumbai',
-      slug: 'top-10-investment-areas-mumbai',
-      content: 'Detailed analysis of Mumbai real estate...',
-      isPublished: true,
-      categories: ['Investment', 'Mumbai'],
-    }
+  await prisma.blog.createMany({
+    data: [
+      {
+        title: 'Why New Tehri is the Next Big Luxury Vacation Home Destination',
+        slug: 'tehri-lake-investment-guide',
+        content: 'Tehri has consistently outperformed traditional hill stations in Uttarakhand. With the massive Tehri Lake and government initiatives to develop world-class water sports and luxury tourism, land values have appreciated by over 22% YoY. Investors are flocking to build luxury villas and boutique resorts overlooking the magnificent reservoir.',
+        isPublished: true,
+        categories: ['Investment', 'Tehri'],
+      },
+      {
+        title: 'Dehradun Real Estate Boom: Connecting City Comforts with Nature',
+        slug: 'dehradun-real-estate-boom',
+        content: 'Dehradun is witnessing an unprecedented transition from a quiet retirement town to a bustling residential hub. The Delhi-Dehradun Expressway is the principal catalyst, cutting travel time drastically and making it a prime location for remote workers, retirees, and families looking for a blend of urban amenities and natural serenity.',
+        isPublished: true,
+        categories: ['Market News', 'Dehradun'],
+      },
+      {
+        title: 'Kanatal: The Hidden Gem for Exclusive Mountain Retreats',
+        slug: 'kanatal-hidden-gem-uttarakhand',
+        content: 'While Mussoorie remains crowded, neighboring Kanatal offers the untouched beauty and tranquility that high-end buyers crave. Known for its lush pine forests and panoramic Himalayan views, Kanatal is emerging as a hotspot for sustainable, luxury eco-estates. Buyers are prioritizing privacy and nature, making this quiet hamlet highly sought after.',
+        isPublished: true,
+        categories: ['Lifestyle', 'Kanatal'],
+      }
+    ]
   });
 
   console.log('Seeding completed successfully!');
