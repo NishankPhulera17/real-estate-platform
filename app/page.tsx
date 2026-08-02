@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, Play, MapPin } from 'lucide-react';
 import TheShift from '@/components/sections/TheShift';
 import { VideoCarousel } from '@/components/sections/VideoCarousel';
+import { MOCK_BLOGS } from '@/lib/data/mockData';
 
 export default function HomePage() {
   return (
@@ -174,15 +175,12 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {[
-            { title: "The Art of Kumaoni Woodwork", tag: "Vol I — Heritage", img: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80" },
-            { title: "Building a Sustainable Mountain Home", tag: "Vol II — Architecture", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" },
-          ].map((article, idx) => (
-            <Link href={`/blog/${article.title.toLowerCase().replace(/ /g, '-')}`} key={idx} className="group block">
+          {MOCK_BLOGS.slice(0, 2).map((article, idx) => (
+            <Link href={`/blog/${article.slug}`} key={idx} className="group block">
               <div className="relative aspect-[4/3] w-full mb-8 overflow-hidden shadow-lg">
-                <Image src={article.img} alt={article.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-105" unoptimized />
+                <Image src={article.coverImage} alt={article.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-105" unoptimized />
               </div>
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-wood-600 block mb-3">{article.tag}</span>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-wood-600 block mb-3">{article.category}</span>
               <h3 className="font-display text-4xl font-medium text-forest-900 group-hover:text-forest-600 transition-colors">{article.title}</h3>
             </Link>
           ))}
