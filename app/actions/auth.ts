@@ -42,7 +42,8 @@ export async function registerAction(data: RegisterInput) {
       return { error: "Invalid fields" };
     }
 
-    const { email, password, name, role } = validatedFields.data;
+    const { email: rawEmail, password, name, role } = validatedFields.data;
+    const email = rawEmail.toLowerCase();
 
     const existingUser = await prisma.user.findUnique({
       where: { email },

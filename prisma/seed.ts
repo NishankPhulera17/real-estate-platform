@@ -12,6 +12,13 @@ const prisma = new PrismaClient({ adapter });
 async function main() {
   console.log('Starting seeding...');
 
+  // Check if already seeded to prevent wiping production data
+  const existingAdmin = await prisma.user.findUnique({ where: { email: 'admin@example.com' } });
+  if (existingAdmin) {
+    console.log('Database already seeded. Skipping...');
+    return;
+  }
+
   // Clean DB
   await prisma.auditLog.deleteMany();
   await prisma.notification.deleteMany();
@@ -57,7 +64,7 @@ async function main() {
   const builderUser = await prisma.user.create({
     data: {
       name: 'NorthNest',
-      email: 'NorthNest@example.com',
+      email: 'northnest@example.com',
       password: passwordHash,
       role: Role.BUILDER,
       builder: {
