@@ -86,7 +86,7 @@ export const MOCK_PROPERTIES: Property[] = [
     },
     builder: {
       id: 'bldr-1',
-      name: 'DLF Limited & NorthNest',
+      name: 'NorthNest',
       logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=300&q=80'
     },
     bhk: 0,

@@ -57,7 +57,7 @@ export function formatDbProperty(dbProp: any): Property {
     },
     builder: {
       id: dbProp.builder?.id || dbProp.builderId || "bldr-1",
-      name: dbProp.builder?.name || "DLF Limited & NorthNest",
+      name: dbProp.builder?.name || "NorthNest",
       logo: dbProp.builder?.logo || "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=300&q=80",
     },
     bhk: dbProp.bhk !== undefined ? dbProp.bhk : 3,

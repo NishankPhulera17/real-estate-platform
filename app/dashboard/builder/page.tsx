@@ -65,10 +65,10 @@ export default function BuilderDashboardPage() {
         setIsTelemetryLoading(false);
       }
     }
-    
+
     loadTelemetry();
     const interval = setInterval(loadTelemetry, 10000); // 10 seconds polling
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -127,7 +127,7 @@ export default function BuilderDashboardPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-500/30">
-            Developer Console • DLF Limited & NorthNest
+            Developer Console • NorthNest
           </span>
           <h1 className="font-display text-3xl font-bold text-slate-900 mt-1">Builder Inventory & Lead Analytics</h1>
         </div>
@@ -239,7 +239,7 @@ export default function BuilderDashboardPage() {
             <span>🔥 AI Intent Scored Leads</span>
           </span>
         </div>
-        
+
         {isTelemetryLoading ? (
           <div className="py-12 flex flex-col items-center justify-center text-slate-500 space-y-3">
             <Loader2 className="w-8 h-8 animate-spin text-indigo-500" />
@@ -254,31 +254,31 @@ export default function BuilderDashboardPage() {
         ) : (
           <div className="space-y-3">
             {telemetryFeed.map((lead) => (
-            <div key={lead.id} className="p-4 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm hover:border-indigo-400 transition-all">
-              <div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-bold text-slate-900 text-sm">{lead.name}</span>
-                  <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 text-[10px] font-extrabold">{lead.status}</span>
+              <div key={lead.id} className="p-4 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm hover:border-indigo-400 transition-all">
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <span className="font-bold text-slate-900 text-sm">{lead.name}</span>
+                    <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 text-[10px] font-extrabold">{lead.status}</span>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1">Viewing: <span className="font-semibold text-slate-800">{lead.propertyTitle}</span> • Contact: {lead.phone}</p>
                 </div>
-                <p className="text-xs text-slate-600 mt-1">Viewing: <span className="font-semibold text-slate-800">{lead.propertyTitle}</span> • Contact: {lead.phone}</p>
-              </div>
-              <div className="flex items-center space-x-4 text-xs">
-                <div className="text-right">
-                  <span className="block text-indigo-600 font-extrabold text-sm">Score: {lead.score}/100</span>
-                  <span className="text-[10px] text-slate-500">{lead.views} listing views ({lead.timeSpent})</span>
+                <div className="flex items-center space-x-4 text-xs">
+                  <div className="text-right">
+                    <span className="block text-indigo-600 font-extrabold text-sm">Score: {lead.score}/100</span>
+                    <span className="text-[10px] text-slate-500">{lead.views} listing views ({lead.timeSpent})</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedVisitorId(lead.id);
+                      setIsTimelineModalOpen(true);
+                    }}
+                    className="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition shadow-sm"
+                  >
+                    View Timeline
+                  </button>
                 </div>
-                <button 
-                  onClick={() => {
-                    setSelectedVisitorId(lead.id);
-                    setIsTimelineModalOpen(true);
-                  }}
-                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 transition shadow-sm"
-                >
-                  View Timeline
-                </button>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
         )}
       </div>
