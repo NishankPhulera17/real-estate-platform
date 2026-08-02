@@ -811,7 +811,7 @@ It is about how you choose to live.
     id: 'blog-5',
     slug: 'why-city-life-no-longer-feels-like-success',
     title: 'Why City Life No Longer Feels Like Success',
-    category: 'Lifestyle',
+    category: 'Area Reviews',
     snippet: 'For generations, cities represented ambition. But somewhere along the journey, many began asking an uncomfortable question: Is this really the life we wanted?',
     content: `For generations, cities represented ambition.
 

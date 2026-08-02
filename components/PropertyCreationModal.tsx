@@ -93,28 +93,13 @@ export function PropertyCreationModal({
 
   const [description, setDescription] = useState('');
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(['Mountain View', 'High-speed Fiber Internet', '24/7 Security & CCTV']);
-  const [imageUrls, setImageUrls] = useState<string[]>([
-    'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80'
-  ]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [videoUrlInput, setVideoUrlInput] = useState<string>('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
 
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const addImageInput = () => setImageUrls(prev => [...prev, '']);
-  const updateImageInput = (idx: number, val: string) => setImageUrls(prev => prev.map((item, i) => (i === idx ? val : item)));
-  const removeImageInput = (idx: number) => setImageUrls(prev => prev.filter((_, i) => i !== idx));
-  
-  const fillLuxuryPresets = () => {
-    setImageUrls([
-      'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80'
-    ]);
-    setVideoUrlInput('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
-  };
+  const removeUploadedImage = (idx: number) => setImageUrls(prev => prev.filter((_, i) => i !== idx));
 
   const [uploadingCloudinary, setUploadingCloudinary] = useState(false);
   const [cloudinaryNotice, setCloudinaryNotice] = useState<string | null>(null);
@@ -196,6 +181,12 @@ export function PropertyCreationModal({
     const validImages = imageUrls.map(u => u.trim()).filter(Boolean);
     const validVideos = videoUrlInput.trim() ? [videoUrlInput.trim()] : [];
 
+    if (validImages.length === 0) {
+      setErrorMsg('Please upload at least one property image.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const result = await createPropertyAction({
         title,
@@ -241,7 +232,7 @@ export function PropertyCreationModal({
             id: 'live-db-developer',
             logo: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=300&q=80'
           },
-          images: validImages.length > 0 ? validImages : ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'],
+          images: validImages,
           videos: validVideos,
           videoUrl: validVideos[0] || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
           isLiveDb: true,
@@ -527,14 +518,6 @@ export function PropertyCreationModal({
                 <ImageIcon className="w-4 h-4 text-amber-400" />
                 <span>Media Gallery (Photos & Video Tour)</span>
               </h3>
-              <button
-                type="button"
-                onClick={fillLuxuryPresets}
-                className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-[11px] font-bold text-amber-300 flex items-center space-x-1.5 transition self-start sm:self-auto"
-              >
-                <Zap className="w-3 h-3 text-amber-400 fill-amber-400" />
-                <span>⚡ Fill High-Res Showcase Assets</span>
-              </button>
             </div>
 
             {/* Cloudinary Direct Uploader */}
@@ -587,38 +570,37 @@ export function PropertyCreationModal({
               )}
             </div>
 
-            <div className="space-y-3 pt-2">
-              <label className="block text-xs font-semibold text-slate-300">Property Image URLs (Cover Photo is 1st link)</label>
-              {imageUrls.map((url, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <input
-                    type="url"
-                    value={url}
-                    onChange={(e) => updateImageInput(index, e.target.value)}
-                    placeholder="e.g. https://images.unsplash.com/photo-16005965..."
-                    className="flex-1 px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-xs focus:border-amber-400 outline-none"
-                  />
-                  {imageUrls.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeImageInput(index)}
-                      className="p-2.5 rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 border border-slate-700 transition"
-                      title="Remove image URL"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  )}
+            {/* Uploaded Images Preview Gallery */}
+            {imageUrls.length > 0 && (
+              <div className="space-y-3 pt-2">
+                <label className="block text-xs font-semibold text-slate-300 flex items-center justify-between">
+                  <span>Uploaded Images ({imageUrls.length})</span>
+                  <span className="text-[10px] font-normal text-slate-500">First image will be used as cover</span>
+                </label>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  {imageUrls.map((url, index) => (
+                    <div key={index} className="relative group rounded-xl overflow-hidden aspect-video border border-slate-700 bg-slate-800">
+                      <img src={url} alt={`Upload preview ${index + 1}`} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <button
+                          type="button"
+                          onClick={() => removeUploadedImage(index)}
+                          className="w-8 h-8 rounded-full bg-rose-500/80 hover:bg-rose-500 text-white flex items-center justify-center transition"
+                          title="Remove image"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                      {index === 0 && (
+                        <div className="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-amber-500/90 text-white text-[9px] font-bold uppercase tracking-wider backdrop-blur-sm">
+                          Cover
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-              <button
-                type="button"
-                onClick={addImageInput}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700/80 text-xs font-semibold text-slate-300 flex items-center space-x-1.5 border border-slate-700 transition"
-              >
-                <Plus className="w-4 h-4 text-amber-400" />
-                <span>Add Another Image URL</span>
-              </button>
-            </div>
+              </div>
+            )}
 
             <div className="pt-2 border-t border-slate-800/80">
               <label className="block text-xs font-semibold text-slate-300 mb-1.5 flex items-center space-x-1.5">
