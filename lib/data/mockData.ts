@@ -525,7 +525,7 @@ export const MOCK_BLOGS: BlogPost[] = [
     id: 'blog-3',
     slug: 'kanatal-hidden-gem-uttarakhand',
     title: 'Kanatal: The Hidden Gem for Exclusive Mountain Retreats',
-    category: 'Lifestyle',
+    category: 'Area Reviews',
     snippet: 'Discover why the quiet, pine-scented slopes of Kanatal are becoming the preferred address for ultra-luxury eco-friendly estates.',
     content: 'While Mussoorie remains crowded, neighboring Kanatal offers the untouched beauty and tranquility that high-end buyers crave. Known for its lush pine forests and panoramic Himalayan views, Kanatal is emerging as a hotspot for sustainable, luxury eco-estates. Buyers are prioritizing privacy and nature, making this quiet hamlet highly sought after.',
     author: {
@@ -537,6 +537,377 @@ export const MOCK_BLOGS: BlogPost[] = [
     readTimeMinutes: 4,
     coverImage: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
     tags: ['Kanatal', 'Eco-Estates', 'Mountain Homes', 'Lifestyle']
+  },
+  {
+    id: 'blog-4',
+    slug: 'reverse-migration-reshaping-uttarakhand',
+    title: 'The Great Return: How Reverse Migration Is Reshaping Uttarakhand and Why It Matters',
+    category: 'Market News',
+    snippet: 'Across Uttarakhand, a growing number of people are returning—not because they have failed in the cities, but because they are redefining what success looks like.',
+    content: `For decades, the story of Uttarakhand was defined by one word: *migration*.
+
+Every year, thousands of young people left their villages and hometowns for Delhi, Mumbai, Bengaluru, Chandigarh, Pune, and other metropolitan cities. They were searching for better education, higher-paying jobs, modern healthcare, and opportunities that seemed impossible to find in the hills.
+
+The result was visible across the state. Villages became quieter. Schools shut down due to declining enrollment. Agricultural land was abandoned. Traditional homes were locked for years. Entire communities slowly disappeared as generations settled elsewhere.
+
+But today, a new chapter is being written.
+
+Across Uttarakhand, a growing number of people are returning—not because they have failed in the cities, but because they are redefining what success looks like.
+
+This movement is known as *reverse migration*, and it is transforming not only how people live but also how they think about home, work, investment, and the future.
+
+At NorthNest, we believe this is one of the most significant social and economic shifts happening in India today.
+
+---
+
+## Why Are People Leaving Cities?
+
+For many years, cities promised everything: careers, growth, financial security, and modern lifestyles.
+
+While cities have undoubtedly created opportunities for millions, they have also introduced challenges that affect everyday life.
+
+Many urban residents now face:
+
+* Rising air pollution
+* Long daily commutes
+* Expensive housing
+* Increasing stress and burnout
+* Limited access to green spaces
+* Noise pollution
+* Higher living costs
+* Less time with family
+* Reduced work-life balance
+
+Owning a home in many major cities has become increasingly difficult, while the quality of life often continues to decline.
+
+The pandemic accelerated a question that many had quietly been asking for years:
+
+*Do we really need to live in a city to build a successful life?*
+
+For an increasing number of professionals, entrepreneurs, freelancers, creators, retirees, and families, the answer is no.
+
+---
+
+## Technology Changed Everything
+
+Only a decade ago, living away from major cities meant sacrificing career opportunities.
+
+Today, technology has changed that equation.
+
+Remote work, online businesses, digital consulting, software development, content creation, e-commerce, and global freelancing allow people to earn from anywhere with a reliable internet connection.
+
+Work is becoming increasingly location-independent.
+
+People are no longer choosing where to live based solely on where offices are located.
+
+Instead, they are choosing places that offer a healthier, happier, and more meaningful lifestyle.
+
+For many, Uttarakhand has become that place.
+
+---
+
+## Why Uttarakhand Is Becoming India's Lifestyle Destination
+
+Uttarakhand offers something that is becoming increasingly rare in modern life.
+
+Fresh mountain air.
+
+Natural forests.
+
+Clean rivers.
+
+A slower pace of life.
+
+A deep cultural heritage.
+
+Healthy food.
+
+Close-knit communities.
+
+Access to trekking, adventure, yoga, spirituality, and nature.
+
+Whether someone wants to raise children in a healthier environment, retire peacefully, build a holiday home, or simply escape the constant rush of metropolitan life, Uttarakhand provides an alternative that feels increasingly relevant.
+
+This is no longer simply about tourism.
+
+People want to build lives here.
+
+---
+
+## Reverse Migration Is More Than Coming Home
+
+When people hear the phrase "reverse migration," they often imagine families returning to their ancestral villages.
+
+That is certainly part of the story.
+
+But today's reverse migration is much broader.
+
+It includes:
+
+* Professionals relocating permanently from cities
+* Entrepreneurs launching businesses in the hills
+* Creators and artists seeking inspiring environments
+* Remote workers building mountain lifestyles
+* Retirees investing in peaceful communities
+* Families prioritizing healthier childhoods
+* Investors looking for long-term opportunities
+* Individuals reconnecting with their cultural roots
+
+Some return to ancestral homes.
+
+Others build entirely new ones.
+
+The common thread is simple:
+
+People are choosing quality of life over convenience.
+
+---
+
+## Natural Farming Is Creating New Opportunities
+
+One of the strongest outcomes of reverse migration has been the revival of agriculture.
+
+Across Uttarakhand, people are restoring abandoned farmland and embracing natural farming practices.
+
+Instead of relying heavily on chemical-intensive agriculture, many are cultivating:
+
+* Traditional millets
+* Organic vegetables
+* Seasonal fruits
+* Medicinal herbs
+* Honey
+* Herbs and spices
+* Indigenous crops
+
+Consumers across India increasingly value healthy, chemical-free food.
+
+This growing demand creates opportunities for local farmers, entrepreneurs, hospitality businesses, and agritourism.
+
+Land that once appeared unproductive is becoming valuable again—not only economically but socially and environmentally.
+
+---
+
+## A New Era for Uttarakhand Real Estate
+
+Real estate in Uttarakhand is evolving.
+
+For years, many buyers viewed property solely as an investment.
+
+Today, purchasing land often represents something much deeper.
+
+People are looking for places where they can:
+
+Build sustainable homes.
+
+Create weekend retreats.
+
+Start homestays.
+
+Develop eco-resorts.
+
+Launch wellness businesses.
+
+Practice farming.
+
+Raise families.
+
+Retire peacefully.
+
+Work remotely.
+
+Reconnect with nature.
+
+The value of a property is no longer measured only in square feet.
+
+It is measured by the life it enables.
+
+---
+
+## Sustainable Development Must Come First
+
+As interest in Uttarakhand grows, responsible development becomes increasingly important.
+
+The Himalayan ecosystem is fragile.
+
+Unplanned construction, excessive commercialization, illegal land practices, and environmental neglect can damage the very landscapes that attract people here.
+
+Future development should prioritize:
+
+* Environmentally responsible construction
+* Rainwater harvesting
+* Renewable energy
+* Local architecture
+* Water conservation
+* Disaster-resilient planning
+* Respect for local communities
+* Preservation of forests and biodiversity
+
+Growth should never come at the cost of nature.
+
+The future of Uttarakhand depends on balancing development with conservation.
+
+---
+
+## Why NorthNest Exists
+
+At NorthNest, we believe a home is far more than a property transaction.
+
+It is a life decision.
+
+Our mission is to make reverse migration easier, safer, and more transparent for people who dream of building a future in Uttarakhand.
+
+Whether you're searching for a mountain home, agricultural land, an investment opportunity, a retirement property, or simply exploring the possibility of relocating, we want to be your trusted guide.
+
+We are building more than a real estate platform.
+
+We are building a movement around better living.
+
+Through verified property listings, local expertise, migration resources, market insights, and educational content, our goal is to help people make informed decisions while supporting sustainable growth across Uttarakhand.
+
+---
+
+## Looking Ahead
+
+The future of Uttarakhand is not only about tourism.
+
+It is about communities.
+
+Entrepreneurship.
+
+Natural farming.
+
+Responsible development.
+
+Digital careers.
+
+Healthier families.
+
+Cleaner environments.
+
+And a new generation choosing to build meaningful lives closer to nature.
+
+Reverse migration is no longer a trend.
+
+It is a transformation.
+
+At NorthNest, we are proud to be part of this journey.
+
+Because finding a home is not just about where you live.
+
+It is about how you choose to live.
+
+*Welcome to NorthNest. Welcome home.*`,
+    author: {
+      name: 'NorthNest',
+      role: 'Editorial',
+      avatar: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=200&q=80'
+    },
+    publishedAt: '2026-08-01',
+    readTimeMinutes: 8,
+    coverImage: 'https://images.unsplash.com/photo-1542371900-3fb1c554a938?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Uttarakhand', 'Reverse Migration', 'Lifestyle', 'Remote Work']
+  },
+  {
+    id: 'blog-5',
+    slug: 'why-city-life-no-longer-feels-like-success',
+    title: 'Why City Life No Longer Feels Like Success',
+    category: 'Lifestyle',
+    snippet: 'For generations, cities represented ambition. But somewhere along the journey, many began asking an uncomfortable question: Is this really the life we wanted?',
+    content: `For generations, cities represented ambition.
+
+Higher salaries, better education, endless opportunities, and modern lifestyles attracted millions of people from smaller towns and villages.
+
+But somewhere along the journey, many began asking an uncomfortable question.
+
+Is this really the life we wanted?
+
+Hours spent in traffic. Rising pollution. Expensive housing. Limited green spaces. Constant noise. Increasing stress. Declining mental health.
+
+The city offers opportunity, but often demands an enormous personal cost.
+
+Air quality has become a daily concern in many metropolitan regions. Children grow up with limited access to nature. Families spend more time commuting than together. Even after years of hard work, owning a home in major cities remains financially difficult for many.
+
+At the same time, technology has quietly rewritten the rules.
+
+Remote work, online businesses, digital consulting, freelancing, and creator economies allow professionals to earn globally while living almost anywhere.
+
+This shift has opened a new possibility.
+
+Instead of asking, "Where are the jobs?"
+
+People are asking,
+
+"Where do I actually want to live?"
+
+For thousands, the answer is the mountains.
+
+Fresh air.
+
+Slower mornings.
+
+Community.
+
+Clean water.
+
+Space.
+
+Silence.
+
+A healthier environment for children.
+
+The choice is no longer between career and quality of life.
+
+Increasingly, people are discovering they can have both.
+
+The future may not belong exclusively to mega cities.
+
+It may belong to places that allow people to live well.`,
+    author: {
+      name: 'NorthNest',
+      role: 'Editorial',
+      avatar: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=200&q=80'
+    },
+    publishedAt: '2026-08-02',
+    readTimeMinutes: 5,
+    coverImage: 'https://images.unsplash.com/photo-1517409241517-567b45a64350?auto=format&fit=crop&w=1200&q=80',
+    tags: ['City Life', 'Mountain Life', 'Lifestyle', 'Remote Work']
+  },
+  {
+    id: 'blog-6',
+    slug: 'why-uttarakhand-could-become-indias-wellness-capital',
+    title: 'Why Uttarakhand Could Become India\'s Wellness Capital',
+    category: 'Investment',
+    snippet: 'As stress-related illnesses, pollution, and lifestyle disorders increase across urban India, demand for wellness destinations continues to grow.',
+    content: `Uttarakhand has always been associated with spirituality, rivers, forests, yoga, and the Himalayas.
+
+But its next chapter may be even bigger.
+
+As stress-related illnesses, pollution, and lifestyle disorders increase across urban India, demand for wellness destinations continues to grow.
+
+People are looking beyond vacations.
+
+They want places where they can recover physically, mentally, and emotionally.
+
+This creates opportunities for wellness retreats, eco-resorts, yoga communities, senior living, preventive healthcare, forest therapy, holistic healing, and sustainable residential developments.
+
+Real estate is becoming part of the wellness economy.
+
+Developers who prioritize environmental preservation, walkability, renewable energy, rainwater harvesting, and local materials will likely define the next generation of mountain living.
+
+The future belongs to developments that improve lives rather than simply occupy land.
+
+Uttarakhand already possesses what many destinations are trying to build artificially.
+
+Nature has already done the hard work.`,
+    author: {
+      name: 'NorthNest',
+      role: 'Editorial',
+      avatar: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=200&q=80'
+    },
+    publishedAt: '2026-08-03',
+    readTimeMinutes: 4,
+    coverImage: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1200&q=80',
+    tags: ['Wellness', 'Real Estate', 'Uttarakhand', 'Investment']
   }
 ];
 
