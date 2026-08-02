@@ -501,7 +501,7 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-18',
     readTimeMinutes: 6,
-    coverImage: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1712379809725-8c4eeb1a06d0?auto=format&fit=crop&w=1200&q=80',
     tags: ['Tehri', 'Lake View', 'Luxury Real Estate', 'Market Trends']
   },
   {
@@ -518,7 +518,7 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-12',
     readTimeMinutes: 5,
-    coverImage: 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1691031429261-aeb324882888?auto=format&fit=crop&w=1200&q=80',
     tags: ['Dehradun', 'Doon Valley', 'Infrastructure', 'Price Trends']
   },
   {
@@ -535,7 +535,7 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-05',
     readTimeMinutes: 4,
-    coverImage: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://images.unsplash.com/photo-1689676452888-c9ccc1896e96?auto=format&fit=crop&w=1200&q=80',
     tags: ['Kanatal', 'Eco-Estates', 'Mountain Homes', 'Lifestyle']
   },
   {
@@ -804,7 +804,7 @@ It is about how you choose to live.
     },
     publishedAt: '2026-08-01',
     readTimeMinutes: 8,
-    coverImage: 'https://images.unsplash.com/photo-1542371900-3fb1c554a938?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1722867183515-ae6dc3dc2081?auto=format&fit=crop&w=1200&q=80',
     tags: ['Uttarakhand', 'Reverse Migration', 'Lifestyle', 'Remote Work']
   },
   {
@@ -869,7 +869,7 @@ It may belong to places that allow people to live well.`,
     },
     publishedAt: '2026-08-02',
     readTimeMinutes: 5,
-    coverImage: 'https://images.unsplash.com/photo-1517409241517-567b45a64350?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1677346862368-3f140e02eb86?auto=format&fit=crop&w=1200&q=80',
     tags: ['City Life', 'Mountain Life', 'Lifestyle', 'Remote Work']
   },
   {
@@ -906,7 +906,7 @@ Nature has already done the hard work.`,
     },
     publishedAt: '2026-08-03',
     readTimeMinutes: 4,
-    coverImage: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://plus.unsplash.com/premium_photo-1697730421390-63ae0487b986?auto=format&fit=crop&w=1200&q=80',
     tags: ['Wellness', 'Real Estate', 'Uttarakhand', 'Investment']
   }
 ];
