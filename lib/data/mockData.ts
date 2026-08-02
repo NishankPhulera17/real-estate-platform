@@ -518,7 +518,7 @@ export const MOCK_BLOGS: BlogPost[] = [
     },
     publishedAt: '2026-07-12',
     readTimeMinutes: 5,
-    coverImage: 'https://plus.unsplash.com/premium_photo-1691031429261-aeb324882888?auto=format&fit=crop&w=1200&q=80',
+    coverImage: 'https://s7ap1.scene7.com/is/image/incredibleindia/mountains-dehradun-uttrakhand-city-1-hero?qlt=82&ts=1742155351343',
     tags: ['Dehradun', 'Doon Valley', 'Infrastructure', 'Price Trends']
   },
   {
