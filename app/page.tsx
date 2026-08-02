@@ -123,7 +123,7 @@ export default function HomePage() {
       </section> */}
 
       {/* 7. CURATED OPPORTUNITIES - Pahadi Heritage Homes */}
-      <section className="py-10 lg:py-12 bg-forest-900 text-forest-50 px-4 sm:px-6 lg:px-12">
+      {/* <section className="py-10 lg:py-12 bg-forest-900 text-forest-50 px-4 sm:px-6 lg:px-12">
         <div className="max-w-[1400px] mx-auto space-y-24">
           <div className="flex flex-col md:flex-row justify-between items-end border-b border-forest-700 pb-8">
             <div className="space-y-4">
@@ -163,7 +163,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 6. MOUNTAIN LIVING JOURNAL - Editorial Covers */}
       <section className="py-8 lg:py-10 px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto">
