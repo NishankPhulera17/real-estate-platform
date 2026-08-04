@@ -35,7 +35,7 @@ export default function HomePage() {
           {/* <div className="absolute inset-0 bg-gradient-to-b from-forest-900/40 via-forest-900/30 to-forest-900/70"></div> */}
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto space-y-10 -mt-20">
+        <div className="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto space-y-6 md:space-y-10 -mt-10 md:-mt-20">
           <style>{`
             @keyframes fadeIn {
               0% { opacity: 0; }
@@ -51,19 +51,19 @@ export default function HomePage() {
                 slowContinuousZoom 20s ease-in-out infinite alternate;
             }
           `}</style>
-          <h1 className="animate-fade-zoom font-display text-5xl md:text-7xl lg:text-[80px] font-semibold text-white tracking-tight drop-shadow-2xl leading-[1.1]">
-            Your Best Years <br /> Don't Belong in Traffic.
+          <h1 className="animate-fade-zoom font-display text-4xl sm:text-5xl md:text-7xl lg:text-[80px] font-semibold text-white tracking-tight drop-shadow-2xl leading-[1.15] md:leading-[1.1]">
+            Your Best Years <br className="hidden sm:block" /> Don't Belong in Traffic.
           </h1>
-          <p className="pt-8 text-lg md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md font-light tracking-wide leading-relaxed">
+          <p className="pt-2 md:pt-8 text-base sm:text-lg md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md font-light tracking-wide leading-relaxed">
             NorthNest helps you discover carefully curated land and mountain homes in the Kumaon and Garhwal Himalayas—where life is slower, air is cleaner, and moments are real.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8">
-            <Link href="/destinations" className="w-full sm:w-auto px-10 py-4 rounded-none bg-[#16A34A] text-white font-semibold tracking-[0.15em] uppercase text-sm hover:bg-[#15803d] transition-all duration-300">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-6 md:pt-8 w-full max-w-md sm:max-w-none mx-auto">
+            <Link href="/destinations" className="w-full sm:w-auto px-6 md:px-10 py-3.5 md:py-4 rounded-none bg-[#16A34A] text-white font-semibold tracking-[0.15em] uppercase text-xs md:text-sm hover:bg-[#15803d] transition-all duration-300">
               EXPLORE PROPERTIES
             </Link>
-            <button className="w-full sm:w-auto px-10 py-4 rounded-none border border-white/40 text-white font-semibold tracking-[0.15em] uppercase text-sm hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3">
-              <Play className="w-4 h-4 fill-white text-white" />
-              <span>DISCOVER THE NORTHNEST STORY</span>
+            <button className="w-full sm:w-auto px-6 md:px-10 py-3.5 md:py-4 rounded-none border border-white/40 text-white font-semibold tracking-[0.15em] uppercase text-xs md:text-sm hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2 md:gap-3">
+              <Play className="w-3.5 h-3.5 md:w-4 md:h-4 fill-white text-white" />
+              <span>DISCOVER THE STORY</span>
             </button>
           </div>
         </div>
@@ -166,22 +166,22 @@ export default function HomePage() {
       </section> */}
 
       {/* 6. MOUNTAIN LIVING JOURNAL - Editorial Covers */}
-      <section className="py-8 lg:py-10 px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto">
-        <div className="flex flex-col md:flex-row items-end justify-between mb-16">
-          <h2 className="font-display text-5xl font-medium text-forest-900">Journal</h2>
-          <Link href="/blog" className="text-sm font-semibold uppercase tracking-widest text-forest-700 hover:text-forest-900 transition-colors mt-6 md:mt-0 border-b border-wood-400 pb-1">
+      <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-12 max-w-[1400px] mx-auto">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 md:mb-16 gap-4">
+          <h2 className="font-display text-4xl md:text-5xl font-medium text-forest-900">Journal</h2>
+          <Link href="/blog" className="text-sm font-semibold uppercase tracking-widest text-forest-700 hover:text-forest-900 transition-colors w-fit border-b border-wood-400 pb-1">
             Read All Volumes
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
           {MOCK_BLOGS.slice(0, 2).map((article, idx) => (
             <Link href={`/blog/${article.slug}`} key={idx} className="group block">
-              <div className="relative aspect-[4/3] w-full mb-8 overflow-hidden shadow-lg">
+              <div className="relative aspect-[4/3] md:aspect-[4/3] w-full mb-6 md:mb-8 overflow-hidden shadow-lg">
                 <Image src={article.coverImage} alt={article.title} fill className="object-cover transition-transform duration-1000 group-hover:scale-105" unoptimized />
               </div>
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-wood-600 block mb-3">{article.category}</span>
-              <h3 className="font-display text-4xl font-medium text-forest-900 group-hover:text-forest-600 transition-colors">{article.title}</h3>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-wood-600 block mb-2 md:mb-3">{article.category}</span>
+              <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-medium text-forest-900 group-hover:text-forest-600 transition-colors leading-snug">{article.title}</h3>
             </Link>
           ))}
         </div>
