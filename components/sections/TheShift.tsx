@@ -51,8 +51,8 @@ export default function TheShift() {
               fontFamily: '"Impact", "Arial Narrow", "Anton", sans-serif',
             }}
           >
-            <motion.span variants={itemVariants} className="block whitespace-nowrap">Migrate from noise to nature.</motion.span>
-            <motion.span variants={itemVariants} className="block whitespace-nowrap">Choose a better life.</motion.span>
+            <motion.span variants={itemVariants} className="block whitespace-normal md:whitespace-nowrap">Migrate from noise to nature.</motion.span>
+            <motion.span variants={itemVariants} className="block whitespace-normal md:whitespace-nowrap">Choose a better life.</motion.span>
           </h2>
         </div>
 
